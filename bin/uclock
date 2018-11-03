@@ -1,0 +1,24 @@
+#!/usr/bin/env perl6
+
+use Unicode::Time;
+
+subset RoundMode of Str where 'up'|'down'|'closest';
+
+sub get-round (RoundMode $round-mode --> Unicode::Time::Round) {
+    Unicode::Time::Round::{tc $round-mode}
+}
+
+sub MAIN (Bool :$continuous?, RoundMode :$round-mode? = 'closest') {
+    my $round = get-round $round-mode;
+    print unitime now.DateTime.local, :$round;
+
+    if $continuous {
+        react whenever Supply.interval(1) {
+            print "\r";
+            print unitime now.DateTime.local, :$round;
+        }
+    }
+    else {
+        say ""; # line-oriented output
+    }
+}

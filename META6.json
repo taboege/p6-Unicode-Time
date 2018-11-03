@@ -1,0 +1,14 @@
+{
+    "name"        : "Unicode::Time",
+    "version"     : "0.1.0",
+    "perl"        : "6.c",
+    "authors"     : [ "github:taboege" ],
+    "license"     : "Artistic-2.0",
+    "description" : "Display time using Unicode clock characters",
+    "depends"     : [],
+    "resources"   : [],
+    "provides"    : {
+        "Unicode::Time" : "lib/Unicode/Time.pm6"
+    },
+    "source-url"  : "git://github.com/taboege/p6-Unicode-Time.git"
+}
