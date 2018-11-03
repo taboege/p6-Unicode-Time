@@ -38,7 +38,7 @@ component of the given DateTime. There is one character for every half-hour
 of an analogue clock, 24 in total. They start at C<U+1F550> (E<0x1F550>).
 
 The mapping from non-half-hours to half-hours is specified via the
-C<:round> parameter which defaults to C<Closest>.
+C<round> parameter which defaults to C<Closest>.
 »
 sub unitime (DateTime:D() $dt, Round :$round? = Closest --> Str) is export {
     my $minute = do given $round {

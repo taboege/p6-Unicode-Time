@@ -25,7 +25,7 @@ This module allows converting a `DateTime`'s into a Unicode clock character appr
 enum Round <Up Down Closest>;
 ```
 
-Rounding modes for L<unitime>'s C<round> parameter.
+Rounding modes for `unitime`'s `round` parameter.
 
 ### sub unitime
 
@@ -36,7 +36,7 @@ sub unitime(
 ) returns Str
 ```
 
-Return a Unicode clock character that approximately represents the time component of the given DateTime. There is one character for every half-hour of an analogue clock, 24 in total. They start at `U+1F550` (&#x1F550;). The mapping from non-half-hours to half-hours is specified via the `:round` parameter which defaults to `Closest`.
+Return a Unicode clock character that approximately represents the time component of the given DateTime. There is one character for every half-hour of an analogue clock, 24 in total. They start at `U+1F550` (&#x1F550;). The mapping from non-half-hours to half-hours is specified via the `round` parameter which defaults to `Closest`.
 
 CAVEATS
 =======
