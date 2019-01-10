@@ -17,7 +17,7 @@ SYNOPSIS
 DESCRIPTION
 ===========
 
-This module allows converting a `DateTime`'s into a Unicode clock character approximately representing the given time. It exports the `unitime` sub by default which takes a `DateTime` and optionally a `Unicode::Time::Round` rounding mode.
+Approximate a `DateTime`'s time with a Unicode clock character with the `unitime` sub, which is exported by default. Unicode clock characters have half-hour precision (currently?). `unitime` takes a `DateTime` and optionally a `Unicode::Time::Round` rounding mode.
 
 ### enum Round
 
@@ -42,8 +42,6 @@ CAVEATS
 =======
 
 This module should be updated as Unicode inevitably adds codepoints for all the other handle configurations of the clock.
-
-`unitime` operates on minute, not second or millisecond, precision. This means that, when rounding up, 12:00:59 still is 12 o'clock, but 12:01:00 rounds to half past 12.
 
 AUTHOR
 ======
