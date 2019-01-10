@@ -17,10 +17,10 @@ Unicode::Time - Display time using Unicode clock characters
 
 =head1 DESCRIPTION
 
-This module allows converting a C<DateTime>'s into a Unicode clock character
-approximately representing the given time. It exports the C<unitime> sub
-by default which takes a C<DateTime> and optionally a C<Unicode::Time::Round>
-rounding mode.
+Approximate a C<DateTime>'s time with a Unicode clock character with
+the C<unitime> sub, which is exported by default. Unicode clock characters
+have half-hour precision (currently?). C<unitime> takes a C<DateTime> and
+optionally a C<Unicode::Time::Round> rounding mode.
 
 =end pod
 
@@ -41,15 +41,17 @@ The mapping from non-half-hours to half-hours is specified via the
 C<round> parameter which defaults to C<Closest>.
 »
 sub unitime (DateTime:D() $dt, Round :$round? = Closest --> Str) is export {
-    my $minute = do given $round {
-        when Up      { ceiling $dt.minute / 30 }
-        when Down    {   floor $dt.minute / 30 }
-        when Closest {   round $dt.minute / 30 }
+    my $half-hour = do given $round {
+        # Minute with second and millisecond as fraction
+        my $minute = $dt.minute + $dt.second / 60;
+        when Up      { ceiling $minute / 30 }
+        when Down    {   floor $minute / 30 }
+        when Closest {   round $minute / 30 }
     }
-    my $hour = $dt.hour + $minute div 2;
-    $minute mod= 2;
+    my $hour = $dt.hour + $half-hour div 2;
+    $half-hour mod= 2;
     $hour = ($hour - 1) mod 12 + 1; # 0100 to 1230
-    my $handle = $minute == 0 ?? ' OCLOCK' !! '-THIRTY';
+    my $handle = $half-hour == 0 ?? ' OCLOCK' !! '-THIRTY';
     uniparse "CLOCK FACE %ENGLISH{$hour}$handle"
 }
 
@@ -58,10 +60,6 @@ sub unitime (DateTime:D() $dt, Round :$round? = Closest --> Str) is export {
 
 This module should be updated as Unicode inevitably adds codepoints for
 all the other handle configurations of the clock.
-
-C<unitime> operates on minute, not second or millisecond, precision.
-This means that, when rounding up, 12:00:59 still is 12 o'clock, but
-12:01:00 rounds to half past 12.
 
 =head1 AUTHOR
 
