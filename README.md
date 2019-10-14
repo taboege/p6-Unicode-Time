@@ -6,13 +6,15 @@ Unicode::Time - Display time using Unicode clock characters
 SYNOPSIS
 ========
 
-    use Unicode::Time;
-    say now.DateTime.truncated-to <minute>;
-    # > 2018-11-03T16:57:00Z
-    say unitime now;
-    # > 🕔  [CLOCK FACE FIVE OCLOCK]
-    say unitime now, round => Unicode::Time::Down;
-    # > 🕟  [CLOCK FACE FOUR-THIRTY]
+``` perl6
+use Unicode::Time;
+say now.DateTime.truncated-to <minute>;
+# > 2018-11-03T16:57:00Z
+say unitime now;
+# > 🕔  [CLOCK FACE FIVE OCLOCK]
+say unitime now, round => Unicode::Time::Down;
+# > 🕟  [CLOCK FACE FOUR-THIRTY]
+```
 
 DESCRIPTION
 ===========
